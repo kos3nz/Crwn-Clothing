@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './directory.styles.scss';
 import MenuItem from '../menu-item/menu-item.component';
-import { SHOP_SECTIONS } from '../../dev-data/shopItems.data';
+import { SHOP_SECTIONS } from '../../data/shopItems.data';
 
 const Directory = () => {
   const [sections] = useState(SHOP_SECTIONS);
