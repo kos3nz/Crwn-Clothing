@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './App.css';
@@ -12,7 +12,7 @@ import { setCurrentUser } from './redux/user/user.actions';
 
 const App = (props) => {
   // const [currentUser, setCurrentUser] = useState(null);
-  const { setCurrentUser } = props;
+  const { currentUser, setCurrentUser } = props;
 
   useEffect(() => {
     // console.log('useEffect triggered');
@@ -37,8 +37,8 @@ const App = (props) => {
     return () => {
       unsubscribeFromAuth();
     };
-  });
-  // }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // class component の setState({...}, () => {}) のように state を更新した後 cb を渡せないので useEffect を使用
   // useEffect(() => {
@@ -55,17 +55,30 @@ const App = (props) => {
         {/* means exact={true} */}
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
-        <Route path="/signin" component={SignInAndRegisterPage} />
+        <Route
+          exact
+          path="/signin"
+          render={() =>
+            currentUser ? <Redirect to="/" /> : <SignInAndRegisterPage />
+          }
+        />
       </Switch>
     </div>
   );
 };
 
+// Destructuring from root-reducer object
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
   // payload: user
 });
-// return object が App component の props になる
+// returned object が App component の props になる
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+// export default connect(null, mapDispatchToProps)(App);
 // NOTE: connect() expects mapStateToProps as a first argument, and mapDispatchToProps as a second, App component doesn't need the first one so I can just pass null.
