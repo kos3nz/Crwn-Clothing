@@ -6,22 +6,41 @@ import Header from './components/header/header.component';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndRegisterPage from './pages/sign-in-and-register/sign-in-and-register.component';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    console.log('useEffect triggered');
-    const unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      user ? setCurrentUser(user) : setCurrentUser(null);
-      console.log(user);
+    // console.log('useEffect triggered');
+    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      // console.log(userAuth);
+
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot((snapShot) => {
+          // console.log(snapShot.data());
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data(),
+          });
+        });
+      } else {
+        setCurrentUser(userAuth); // = null
+      }
     });
 
     return () => {
       unsubscribeFromAuth();
     };
   }, []);
+
+  // class component の setState({...}, () => {}) のように state を更新した後 cb を渡せないので useEffect を使用
+  useEffect(() => {
+    console.log('Fetched the user data');
+    console.log(currentUser);
+  }, [currentUser]);
 
   return (
     <div>
