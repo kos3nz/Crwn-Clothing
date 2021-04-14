@@ -21,11 +21,13 @@ const Register = () => {
     }
 
     try {
+      // Authentication step
       const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
 
+      // Storing the new data into DB
       await createUserProfileDocument(user, { displayName });
 
       // Clear the form
