@@ -8,6 +8,10 @@
   cursor: pointer;
   margin-left: 10px;
 
+  &:hover {
+    opacity: 0.6;
+  }
+
   .shopping-icon {
     width: 28px;
     height: 28px;
