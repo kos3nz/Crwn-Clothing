@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import './App.css';
 import Header from './components/header/header.component';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndRegisterPage from './pages/sign-in-and-register/sign-in-and-register.component';
+import CheckoutPage from './pages/checkout/checkout.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
+import { selectCurrentUser } from './redux/user/user.selectors';
 
 const App = (props) => {
   // const [currentUser, setCurrentUser] = useState(null);
@@ -55,6 +58,7 @@ const App = (props) => {
         {/* means exact={true} */}
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
+        <Route exact path="/checkout" component={CheckoutPage} />
         <Route
           exact
           path="/signin"
@@ -67,9 +71,17 @@ const App = (props) => {
   );
 };
 
+//## =============== Redux =============== ##//
+
 // Destructuring from root-reducer object
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+// const mapStateToProps = ({ user }) => ({
+//   currentUser: user.currentUser,
+// });
+
+// In case I need to pull in more in the future, I use createStructuredSelector()
+// createStructuredSelector() automatically pass the top-level state into the selectors
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -77,6 +89,8 @@ const mapDispatchToProps = (dispatch) => ({
   // payload: user
 });
 // returned object が App component の props になる
+
+//## =============== Export =============== ##//
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 

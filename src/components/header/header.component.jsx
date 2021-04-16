@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import { auth } from '../../firebase/firebase.utils';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import './header.styles.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
@@ -37,11 +40,19 @@ const Header = ({ currentUser, hidden }) => (
   </div>
 );
 
-// the state object passed as an argument is the root reducer
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-  currentUser,
-  hidden,
+//## =============== Redux =============== ##//
+
+// createStructuredSelector() で selectors にまとめて state を渡す
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden,
 });
+
+// the state object passed as an argument is the root reducer
+// const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+//   currentUser,
+//   hidden,
+// });
 // ↑ equivalent to the code below
 /*
 const mapStateToProps = (state) => {
@@ -52,5 +63,7 @@ const mapStateToProps = (state) => {
   };
 };
 */
+
+//## =============== Export =============== ##//
 
 export default connect(mapStateToProps)(Header);
