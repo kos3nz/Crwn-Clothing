@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
+import { persistStore } from 'redux-persist';
+
 import logger from 'redux-logger';
 
 import rootReducer from './root-reducer';
@@ -6,9 +8,11 @@ import rootReducer from './root-reducer';
 // middleware を array にしておくことで、他の middleware が必要になったときに追加できる (more scalable)
 const middlewares = [logger];
 
-// otherwise I can just pass the logger and apply the default one
+export const store = createStore(rootReducer, applyMiddleware(...middlewares));
+// I can just pass the logger and apply the default one
 // const store = createStore(rootReducer, applyMiddleware(logger));
 
-const store = createStore(rootReducer, applyMiddleware(...middlewares));
+export const persistor = persistStore(store);
 
-export default store;
+const reduxStore = { store, persistor };
+export default reduxStore;

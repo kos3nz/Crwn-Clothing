@@ -5,6 +5,8 @@ import { addItem } from '../../redux/cart/cart.actions';
 
 import './collection-item.styles.scss';
 
+//## =============== Component =============== ##//
+
 const CollectionItem = ({ item, addItem }) => {
   const { name, price, imageUrl } = item;
 
@@ -27,12 +29,12 @@ const CollectionItem = ({ item, addItem }) => {
   );
 };
 
-//:: =============== Redux =============== :://
+//## =============== Redux =============== ##//
 
 const mapDispatchToProps = (dispatch) => ({
   addItem: (item) => dispatch(addItem(item)),
 });
 
-//:: =============== Export =============== :://
+//## =============== Export =============== ##//
 
 export default connect(null, mapDispatchToProps)(CollectionItem);

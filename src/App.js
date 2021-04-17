@@ -13,6 +13,8 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 
+//## =============== Component =============== ##//
+
 const App = (props) => {
   // const [currentUser, setCurrentUser] = useState(null);
   const { currentUser, setCurrentUser } = props;

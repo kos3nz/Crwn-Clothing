@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
-import './directory.styles.scss';
-import MenuItem from '../menu-item/menu-item.component';
-import { SHOP_SECTIONS } from '../../data/shopItems.data';
+// import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-const Directory = () => {
-  const [sections] = useState(SHOP_SECTIONS);
+import './directory.styles.scss';
+
+import MenuItem from '../menu-item/menu-item.component';
+
+// import { SHOP_SECTIONS } from '../../data/shopItems.data';
+import { selectDirectorySections } from '../../redux/directory/directory.selectors';
+
+//## =============== Component =============== ##//
+
+const Directory = ({ sections }) => {
+  // const [sections] = useState(SHOP_SECTIONS);
 
   return (
     <div className="directory-menu">
@@ -20,4 +29,12 @@ const Directory = () => {
   );
 };
 
-export default Directory;
+//## =============== Redux =============== ##//
+
+const mapStateToProps = createStructuredSelector({
+  sections: selectDirectorySections,
+});
+
+//## =============== Export =============== ##//
+
+export default connect(mapStateToProps)(Directory);

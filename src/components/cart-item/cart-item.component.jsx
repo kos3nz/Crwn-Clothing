@@ -1,5 +1,7 @@
 import './cart-item.styles.scss';
 
+//## =============== Component =============== ##//
+
 const CartItem = ({ item: { imageUrl, price, name, quantity } }) => (
   <div className="cart-item">
     <img src={imageUrl} alt="item" />
@@ -11,5 +13,7 @@ const CartItem = ({ item: { imageUrl, price, name, quantity } }) => (
     </div>
   </div>
 );
+
+//## =============== Export =============== ##//
 
 export default CartItem;
