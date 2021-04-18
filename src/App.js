@@ -52,7 +52,7 @@ const App = (props) => {
   // }, [currentUser]);
 
   return (
-    <div>
+    <>
       {/* By putting Header component outside of the Switch, the Header is always present and rendered */}
       <Header />
       {/* Inside of a Switch component, even if multiple paths match the url, the only one page will be rendered*/}
@@ -69,7 +69,7 @@ const App = (props) => {
           }
         />
       </Switch>
-    </div>
+    </>
   );
 };
 
