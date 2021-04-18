@@ -9,15 +9,19 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndRegisterPage from './pages/sign-in-and-register/sign-in-and-register.component';
 import CheckoutPage from './pages/checkout/checkout.component';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import {
+  auth,
+  createUserProfileDocument,
+  // addCollectionAndDocuments,
+} from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+// import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
 
 //## =============== Component =============== ##//
 
-const App = (props) => {
+const App = ({ currentUser, setCurrentUser, collectionsArray }) => {
   // const [currentUser, setCurrentUser] = useState(null);
-  const { currentUser, setCurrentUser } = props;
 
   useEffect(() => {
     // console.log('useEffect triggered');
@@ -26,6 +30,7 @@ const App = (props) => {
 
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
+        // console.log(userRef);
 
         userRef.onSnapshot((snapShot) => {
           // console.log(snapShot.data());
@@ -37,6 +42,13 @@ const App = (props) => {
       } else {
         setCurrentUser(userAuth); // = null
       }
+      // addCollectionAndDocuments(
+      //   'collections',
+      //   collectionsArray.map((collection) => ({
+      //     title: collection.title,
+      //     items: collection.items,
+      //   }))
+      // );
     });
 
     return () => {
@@ -84,6 +96,7 @@ const App = (props) => {
 // createStructuredSelector() automatically pass the top-level state into the selectors
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  // collectionsArray: selectCollectionsForPreview,
 });
 
 const mapDispatchToProps = (dispatch) => ({

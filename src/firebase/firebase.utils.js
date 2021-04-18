@@ -15,7 +15,7 @@ const firebaseConfig = {
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
-  // Retrieving user documentRef (still not the actual data)
+  // Retrieving user documentRef (still not the actual data, because I actually don't know if the data exists at this point)
   const userRef = firestore.doc(`users/${userAuth.uid}`);
   // console.log('Reference:');
   // console.log(userRef);
@@ -47,8 +47,31 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-// Initializing App
-// "Firebase App named '[DEFAULT]' already exists" Error の対処
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey);
+  // console.log(collectionRef);
+
+  // Creates a write batch, used for performing multiple writes as a single atomic operation.
+  const batch = firestore.batch();
+
+  objectsToAdd.forEach((obj) => {
+    // collectionRef.doc() will pass an unique id to the docRefs
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+  });
+
+  // fire off the batch request
+  // Commits all of the writes in this write batch as a single atomic unit.
+  // commit() returns Promise and the value is void if the request succeeds
+  return await batch.commit();
+};
+
+//## =============== Initializing Firebase App =============== ##//
+
+// "Firebase App named '[DEFAULT]' already exists" Error への対処
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
