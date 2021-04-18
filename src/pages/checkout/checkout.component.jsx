@@ -11,6 +11,8 @@ import {
 
 import './checkout.styles.scss';
 
+//## =============== Component =============== ##//
+
 const CheckoutPage = ({ cartItems, total }) => (
   <div className="checkout-page">
     <div className="checkout-header">

@@ -6,7 +6,11 @@ import logger from 'redux-logger';
 import rootReducer from './root-reducer';
 
 // middleware を array にしておくことで、他の middleware が必要になったときに追加できる (more scalable)
-const middlewares = [logger];
+const middlewares = [];
+
+if (process.env.NODE_ENV === 'development') {
+  middlewares.push(logger);
+}
 
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 // I can just pass the logger and apply the default one

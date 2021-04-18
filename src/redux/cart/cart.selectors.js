@@ -26,7 +26,7 @@ export const selectCartItems = createSelector(
 export const selectCartItemsCount = createSelector(
   [selectCartItems],
   (cartItems) => {
-    console.log('selectCartItemsCount is being called');
+    // console.log('selectCartItemsCount is being called');
     return cartItems.reduce((acc, cur) => {
       return acc + cur.quantity;
     }, 0);
