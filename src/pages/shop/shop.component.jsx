@@ -28,8 +28,25 @@ const ShopPage = ({ match, updateCollections }) => {
   useEffect(() => {
     const collectionRef = firestore.collection('collections');
 
-    //                            ↓ I don't think I need async keyword here
-    // collectionRef.onSnapshot( async (snapshot) => {
+    // using fetch() (without using collectionRef methods)
+    fetch(
+      'https://firestore.googleapis.com/v1/projects/fb-crwn-db/databases/(default)/documents/collections'
+    )
+      .then((res) => res.json())
+      .then((collections) => console.log(collections));
+    // using get() method
+    collectionRef.get().then((snapshot) => {
+      // console.log(snapshot);
+      const collectionsMap = convertCollectionSnapshotToMap(snapshot);
+      // console.log(collectionsMap);
+      updateCollections(collectionsMap);
+      setLoading((loading) => !loading);
+    });
+    // ↑ code using Promise to fetch data
+    //:: they both work and behave the exact same way, but the code above fetches the data just once when mounting and not keep listening so that it cannot fetch the LIVE data like the code below
+    // ↓ code using observable/observer (subscription)
+    /* ==============================
+    NOTE:= subscription
     const unsubscribeFromSnapshot = collectionRef.onSnapshot((snapshot) => {
       console.log(snapshot);
       const collectionsMap = convertCollectionSnapshotToMap(snapshot);
@@ -37,10 +54,11 @@ const ShopPage = ({ match, updateCollections }) => {
       updateCollections(collectionsMap);
       setLoading((loading) => !loading);
     });
-
     return () => {
       unsubscribeFromSnapshot();
     };
+    ============================== */
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
