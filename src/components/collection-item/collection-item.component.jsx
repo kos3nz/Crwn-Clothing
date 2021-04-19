@@ -1,9 +1,24 @@
 import { connect } from 'react-redux';
+import styled, { css } from 'styled-components';
 
 import CustomButton from '../custom-button/custom-button.component';
 import { addItem } from '../../redux/cart/cart.actions';
 
 import './collection-item.styles.scss';
+
+//## =============== styled component =============== ##//
+
+// CustomButton にスタイル追加
+const additionalStyleForButton = css`
+  width: 80%;
+  position: absolute;
+  top: 70%;
+  display: none;
+`;
+
+const CollectionItemButton = styled(CustomButton)`
+  ${additionalStyleForButton}
+`;
 
 //## =============== Component =============== ##//
 
@@ -22,9 +37,13 @@ const CollectionItem = ({ item, addItem }) => {
         <span className="name">{name}</span>
         <span className="price">{`$${price}`}</span>
       </div>
-      <CustomButton onClick={() => addItem(item)} inverted>
+      <CollectionItemButton
+        onClick={() => addItem(item)}
+        inverted
+        className="collection-item__button" // 従来通り className で追加も可能
+      >
         Add to cart
-      </CustomButton>
+      </CollectionItemButton>
     </div>
   );
 };
