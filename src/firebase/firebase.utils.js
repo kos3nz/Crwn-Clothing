@@ -105,7 +105,11 @@ const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
 
 // signInWithPopup method can be used all kinds of pop-ups like Twitter one and Google one, etc...
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const signInWithGoogle = () =>
+  auth
+    .signInWithRedirect(provider)
+    .then((result) => console.log("You're successfully logged in"))
+    .catch((error) => console.log(error.message));
 /* ==============================
 REVIEW:= signInWithGoogle
   -- signInWithPopup が Chrome ではタブで開く、 Safari では Pop up で開くが blank のまま、Firefox では Pop up で動作する

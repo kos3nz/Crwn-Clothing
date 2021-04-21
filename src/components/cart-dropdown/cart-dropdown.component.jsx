@@ -40,6 +40,7 @@ const CartDropdown = ({ cartItems, total, history, dispatch }) => {
 
 //## =============== Redux =============== ##//
 
+// NOTE: How createStructuredSelector works
 // const mapStateToProps = ({ cart: { cartItems } }) => ({
 //   cartItems,
 // });

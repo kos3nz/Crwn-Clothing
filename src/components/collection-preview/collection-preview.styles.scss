@@ -2,11 +2,29 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
+  justify-content: center;
 
   .title {
     font-size: 28px;
-    margin-bottom: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
     color: #444;
+    align-self: flex-start;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 3px;
+      width: 0;
+      background-color: #444;
+      transition: width 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    &:hover {
+      &::after {
+        width: 100%;
+      }
+    }
   }
 
   .preview {
