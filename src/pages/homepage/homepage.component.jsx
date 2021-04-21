@@ -10,7 +10,7 @@ import { H1 } from '../../components/styled-components/text.styled-components.js
 
 const Homepage = () => (
   <HomePageContainer>
-    <H1 mgBtm="30px">Crwn Clothing</H1>
+    <H1 mgbtm="30px">Crwn Clothing</H1>
     <Directory />
   </HomePageContainer>
 );

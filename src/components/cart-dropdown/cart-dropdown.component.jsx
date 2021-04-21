@@ -1,3 +1,4 @@
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
@@ -59,6 +60,14 @@ const mapStateToProps = createStructuredSelector({
 // });
 // mapDispatchToProps を渡していない場合は connect() が property に dispatch を含んでいるため、必ずしも mapDispatchToProps を渡さないといけないわけではない
 
+//## =============== Container =============== ##//
+
+const CartDropdownContainer = compose(
+  withRouter,
+  connect(mapStateToProps)
+)(CartDropdown);
+
 //## =============== Export =============== ##//
 
-export default withRouter(connect(mapStateToProps)(CartDropdown));
+// export default withRouter(connect(mapStateToProps)(CartDropdown));
+export default CartDropdownContainer;

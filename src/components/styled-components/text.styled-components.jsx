@@ -8,17 +8,17 @@ const styleH1 = css`
   font-size: 40px;
   font-weight: 600;
   text-transform: uppercase;
-  margin-top: ${({ mgTp }) => {
-    return mgTp && `${mgTp}`;
+  margin-top: ${({ mgtp }) => {
+    return mgtp && `${mgtp}`;
   }};
-  margin-right: ${({ mgRt }) => {
-    return mgRt && `${mgRt}`;
+  margin-right: ${({ mgrt }) => {
+    return mgrt && `${mgrt}`;
   }};
-  margin-left: ${({ mgLft }) => {
-    return mgLft && `${mgLft}`;
+  margin-left: ${({ mglft }) => {
+    return mglft && `${mglft}`;
   }};
-  margin-bottom: ${({ mgBtm }) => {
-    return mgBtm && `${mgBtm}`;
+  margin-bottom: ${({ mgbtm }) => {
+    return mgbtm && `${mgbtm}`;
   }};
 `;
 
@@ -34,8 +34,8 @@ export const LinkOverlay = styled.div`
 export const H1Link = styled(Link)`
   ${styleH1}
 
-  align-self: ${({ alignSelf }) => {
-    return alignSelf && `${alignSelf}`;
+  align-self: ${({ alignself }) => {
+    return alignself && `${alignself}`;
   }};
 
   &::after {

@@ -12,7 +12,7 @@ import {
   LinkOverlay,
 } from '../../components/styled-components/text.styled-components.jsx';
 
-import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
+import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 // import {
 // selectIsCollectionsFetching,
 // selectIsCollectionsLoaded,
@@ -25,16 +25,16 @@ import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
 
 // the parent route component pass history, location, match properties as props
 // props = {history, location, match, ...}
-const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
+const ShopPage = ({ match, fetchCollectionsStart }) => {
   useEffect(() => {
-    fetchCollectionsStartAsync();
+    fetchCollectionsStart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="shop-page">
       <LinkOverlay>
-        <H1Link to="/shop" alignSelf="center" mgBtm="20px">
+        <H1Link to="/shop" alignself="center" mgbtm="20px">
           Shop
         </H1Link>
       </LinkOverlay>
@@ -68,7 +68,7 @@ const ShopPage = ({ match, fetchCollectionsStartAsync }) => {
 // });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync()),
+  fetchCollectionsStart: () => dispatch(fetchCollectionsStart()),
 });
 /* ==============================
 NOTE:= Redux-thunk
