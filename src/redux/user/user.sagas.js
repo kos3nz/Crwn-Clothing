@@ -8,7 +8,12 @@ import {
   createUserProfileDocument,
   getCurrentUser,
 } from '../../firebase/firebase.utils';
-import { signInSuccess, signInFailure } from './user.actions';
+import {
+  signInSuccess,
+  signInFailure,
+  signOutSuccess,
+  signOutFailure,
+} from './user.actions';
 
 // REVIEW: Redux-saga is pretty much like async/await function
 //## =============== Helper generator function =============== ##//
@@ -71,6 +76,21 @@ export function* onCheckUserSession() {
   yield takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated);
 }
 
+//## =============== Sign out =============== ##//
+
+export function* signOut() {
+  try {
+    yield auth.signOut();
+    yield put(signOutSuccess());
+  } catch (error) {
+    yield put(signOutFailure(error));
+  }
+}
+
+export function* onSignOutStart() {
+  yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
+}
+
 //## =============== Combine sagas =============== ##//
 
 export function* userSagas() {
@@ -78,5 +98,6 @@ export function* userSagas() {
     call(onGoogleSignInStart),
     call(onEmailSignInStart),
     call(onCheckUserSession),
+    call(onSignOutStart),
   ]);
 }

@@ -36,7 +36,7 @@ const Register = () => {
       setPassword('');
       setConfirmPassword('');
     } catch (error) {
-      console.log(error);
+      alert(error.message);
     }
   };
 

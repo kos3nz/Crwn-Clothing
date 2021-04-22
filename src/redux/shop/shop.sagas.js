@@ -1,4 +1,4 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
+import { all, takeLatest, call, put } from 'redux-saga/effects';
 
 import {
   firestore,
@@ -10,6 +10,8 @@ import {
   fetchCollectionsSuccess,
   fetchCollectionsFailure,
 } from './shop.actions';
+
+//## =============== Fetch collections data =============== ##//
 
 export function* fetchCollectionsAsync() {
   try {
@@ -38,4 +40,10 @@ export function* fetchCollectionsStart() {
     ShopActionTypes.FETCH_COLLECTIONS_START, // ← action.type に一致する string
     fetchCollectionsAsync
   );
+}
+
+//## =============== Combine sagas =============== ##//
+
+export function* shopSagas() {
+  yield all(call(fetchCollectionsStart));
 }
