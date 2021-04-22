@@ -88,6 +88,18 @@ export const convertCollectionSnapshotToMap = (collections) => {
   }, {});
 };
 
+//## Promise needs to be returned so that sagas can yield and work with it
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged((userAuth) => {
+      // stop keep listening
+      unsubscribeFromAuth();
+      // if there is userAuth, return it, otherwise return null (because userAuth = null)
+      resolve(userAuth);
+    }, reject); // equivalent to (error) => reject(error)
+  });
+};
+
 //## =============== Initializing Firebase App =============== ##//
 
 // "Firebase App named '[DEFAULT]' already exists" Error への対処
@@ -99,17 +111,17 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 // this gives access to this new Google auth provider class from the authentication library.
-const provider = new firebase.auth.GoogleAuthProvider();
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-// always trigger the Google pop up whenever the Google auth provider is used for authentication and signin.
-provider.setCustomParameters({ prompt: 'select_account' });
+// always trigger the Google pop up whenever the GoogleAuthProvider is used for authentication and signin.
+googleProvider.setCustomParameters({ prompt: 'select_account' });
 
 // signInWithPopup method can be used all kinds of pop-ups like Twitter one and Google one, etc...
-export const signInWithGoogle = () =>
-  auth
-    .signInWithRedirect(provider)
-    .then((result) => console.log("You're successfully logged in"))
-    .catch((error) => console.log(error.message));
+// export const signInWithGoogle = () =>
+//   auth
+//     .signInWithRedirect(googleProvider)
+//     .then((result) => console.log("You're successfully logged in"))
+//     .catch((error) => console.log(error.message));
 /* ==============================
 REVIEW:= signInWithGoogle
   -- signInWithPopup が Chrome ではタブで開く、 Safari では Pop up で開くが blank のまま、Firefox では Pop up で動作する

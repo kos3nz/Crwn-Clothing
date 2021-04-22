@@ -34,7 +34,7 @@ export function* fetchCollectionsAsync() {
 // if this function gets called while processing previous request, saga middleware can CANCEL the process and start over again, so that it won't fetch data twice.
 export function* fetchCollectionsStart() {
   yield takeLatest(
-    // shop component で dispatch() に action obj(= fetchCollectionsStart()) が渡されたら発火
+    // shop component で dispatch() に action obj(= {type: action.type}) が渡されたら発火
     ShopActionTypes.FETCH_COLLECTIONS_START, // ← action.type に一致する string
     fetchCollectionsAsync
   );

@@ -9,53 +9,55 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndRegisterPage from './pages/sign-in-and-register/sign-in-and-register.component';
 import CheckoutPage from './pages/checkout/checkout.component';
-import {
-  auth,
-  createUserProfileDocument,
-  // addCollectionAndDocuments,
-} from './firebase/firebase.utils';
-import { setCurrentUser } from './redux/user/user.actions';
+
+// import {
+//   auth,
+//   createUserProfileDocument,
+//   addCollectionAndDocuments,
+// } from './firebase/firebase.utils';
+
+import { checkUserSession } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 // import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
 
 //## =============== Component =============== ##//
 
-const App = ({ currentUser, setCurrentUser, collectionsArray }) => {
+const App = ({ currentUser, checkUserSession }) => {
   // const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    // console.log('useEffect triggered');
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      // console.log(userAuth);
-
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-        // console.log(userRef);
-
-        userRef.onSnapshot((snapShot) => {
-          // console.log(snapShot.data());
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      } else {
-        setCurrentUser(userAuth); // = null
-      }
-      // addCollectionAndDocuments(
-      //   'collections',
-      //   collectionsArray.map((collection) => ({
-      //     title: collection.title,
-      //     items: collection.items,
-      //   }))
-      // );
-    });
-
-    return () => {
-      unsubscribeFromAuth();
-    };
+    checkUserSession();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // useEffect(() => {
+  // const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+  //   if (userAuth) {
+  //     const userRef = await createUserProfileDocument(userAuth);
+  //     // console.log(userRef);
+  //     userRef.onSnapshot((snapShot) => {
+  //       // console.log(snapShot.data());
+  //       setCurrentUser({
+  //         id: snapShot.id,
+  //         ...snapShot.data(),
+  //       });
+  //     });
+  //   } else {
+  //     setCurrentUser(userAuth); // = null
+  //   }
+  //   // addCollectionAndDocuments(
+  //   //   'collections',
+  //   //   collectionsArray.map((collection) => ({
+  //   //     title: collection.title,
+  //   //     items: collection.items,
+  //   //   }))
+  //   // );
+  // });
+  // return () => {
+  //   unsubscribeFromAuth();
+  // };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   // class component の setState({...}, () => {}) のように state を更新した後 cb を渡せないので useEffect を使用
   // useEffect(() => {
@@ -100,8 +102,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-  // payload: user
+  checkUserSession: () => dispatch(checkUserSession()),
 });
 // returned object が App component の props になる
 

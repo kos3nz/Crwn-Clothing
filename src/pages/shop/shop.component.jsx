@@ -72,7 +72,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 /* ==============================
 NOTE:= Redux-thunk
-  -- If redux-thunk middleware is enabled, any time I attempt to dispatch a "Function" instead of an object, this middleware will call that function with dispatch method itself as the first argument.
+  -- If redux-thunk middleware is enabled, any time redux attempts to dispatch a "Function" instead of an object, this middleware will call that function with dispatch method itself as the first argument.
 ============================== */
 
 //## =============== Export =============== ##//
