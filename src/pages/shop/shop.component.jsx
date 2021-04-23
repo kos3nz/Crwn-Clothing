@@ -10,7 +10,7 @@ import CollectionPageContainer from '../collection/collection.container';
 import {
   H1Link,
   LinkOverlay,
-} from '../../components/styled-components/text.styled-components.jsx';
+} from '../../components/styled-components/text.styled.jsx';
 
 import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 // import {

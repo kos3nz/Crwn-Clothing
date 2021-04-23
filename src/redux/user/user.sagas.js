@@ -13,14 +13,16 @@ import {
   signInFailure,
   signOutSuccess,
   signOutFailure,
+  registerSuccess,
+  registerFailure,
 } from './user.actions';
 
 // REVIEW: Redux-saga is pretty much like async/await function
 //## =============== Helper generator function =============== ##//
 
-export function* getSnapshotFromUserAuth(user) {
+export function* getSnapshotFromUserAuth(user, additionalData) {
   try {
-    const userRef = yield call(createUserProfileDocument, user);
+    const userRef = yield call(createUserProfileDocument, user, additionalData);
     const userSnapshot = yield userRef.get();
 
     // put() puts things back into our regular Redux flow
@@ -58,6 +60,31 @@ export function* signInWithEmail({ payload: { email, password } }) {
 
 export function* onEmailSignInStart() {
   yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
+}
+
+//## =============== Register =============== ##//
+
+export function* register({ payload: { displayName, email, password } }) {
+  try {
+    const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+
+    yield put(registerSuccess({ user, additionalData: { displayName } }));
+  } catch (error) {
+    yield put(registerFailure(error));
+  }
+}
+
+export function* onRegisterStart() {
+  yield takeLatest(UserActionTypes.REGISTER_START, register);
+}
+
+export function* signInAfterRegister({ payload: { user, additionalData } }) {
+  // getSnapshotFromUserAuth() の中で try and catch してるのでここでは必要ない
+  yield getSnapshotFromUserAuth(user, additionalData);
+}
+
+export function* onRegisterSuccess() {
+  yield takeLatest(UserActionTypes.REGISTER_SUCCESS, signInAfterRegister);
 }
 
 //## =============== Check User Session =============== ##//
@@ -99,5 +126,7 @@ export function* userSagas() {
     call(onEmailSignInStart),
     call(onCheckUserSession),
     call(onSignOutStart),
+    call(onRegisterStart),
+    call(onRegisterSuccess),
   ]);
 }

@@ -12,7 +12,10 @@ const firebaseConfig = {
   measurementId: 'G-FDHXK42CFB',
 };
 
-export const createUserProfileDocument = async (userAuth, additionalData) => {
+export const createUserProfileDocument = async (
+  userAuth,
+  additionalData = {}
+) => {
   if (!userAuth) return;
 
   // Retrieving user documentRef (still not the actual data, because I actually don't know if the data exists at this point)

@@ -1,12 +1,17 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
 
 import './register.styles.scss';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+// import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
-const Register = () => {
+import { registerStart, registerFailure } from '../../redux/user/user.actions';
+
+//## =============== Component =============== ##//
+
+const Register = ({ registerStart, registerError, registerFailure }) => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,28 +21,30 @@ const Register = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Your passwords don't match");
+      registerFailure({ message: 'Your password does not match' });
       return;
     }
 
-    try {
-      // Authentication step
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
+    registerStart({ displayName, email, password });
 
-      // Storing the new data into DB
-      await createUserProfileDocument(user, { displayName });
+    // try {
+    //   // Authentication step
+    //   const { user } = await auth.createUserWithEmailAndPassword(
+    //     email,
+    //     password
+    //   );
 
-      // Clear the form
-      setDisplayName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-    } catch (error) {
-      alert(error.message);
-    }
+    //   // Storing the new data into DB
+    //   await createUserProfileDocument(user, { displayName });
+
+    //   // Clear the form
+    //   setDisplayName('');
+    //   setEmail('');
+    //   setPassword('');
+    //   setConfirmPassword('');
+    // } catch (error) {
+    //   alert(error.message);
+    // }
   };
 
   const handleChange = (e) => {
@@ -104,4 +111,13 @@ const Register = () => {
   );
 };
 
-export default Register;
+//## =============== Redux =============== ##//
+
+const mapDispatchToProps = (dispatch) => ({
+  registerStart: (userCredentials) => dispatch(registerStart(userCredentials)),
+  registerFailure: (error) => dispatch(registerFailure(error)),
+});
+
+//## =============== Export =============== ##//
+
+export default connect(null, mapDispatchToProps)(Register);

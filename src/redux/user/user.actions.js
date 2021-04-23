@@ -26,6 +26,23 @@ export const signInFailure = (error) => ({
   payload: error,
 });
 
+//## =============== Register =============== ##//
+
+export const registerStart = (userCredentials) => ({
+  type: UserActionTypes.REGISTER_START,
+  payload: userCredentials,
+});
+
+export const registerSuccess = ({ user, additionalData }) => ({
+  type: UserActionTypes.REGISTER_SUCCESS,
+  payload: { user, additionalData },
+});
+
+export const registerFailure = (error) => ({
+  type: UserActionTypes.REGISTER_FAILURE,
+  payload: error,
+});
+
 //## =============== Check user session =============== ##//
 
 export const checkUserSession = () => ({
