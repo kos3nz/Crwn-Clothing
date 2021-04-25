@@ -157,7 +157,7 @@ thumb
 sketch
 
 ### vscode ###
-.vscode/*
+.vscode
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/git,node,react,vscode
