@@ -16,8 +16,14 @@ import {
 //## =============== Component =============== ##//
 
 const SignIn = ({ googleSignInStart, emailSignInStart }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+
+  const [userCredentials, setUserCredentials] = useState({
+    email: '',
+    password: '',
+  });
+  const { email, password } = userCredentials;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -38,10 +44,11 @@ const SignIn = ({ googleSignInStart, emailSignInStart }) => {
 
   const handleChange = (event) => {
     const { value, name } = event.target;
-    // console.log(value, name);
 
-    if (name === 'email') setEmail((email) => (email = value));
-    if (name === 'password') setPassword((password) => (password = value));
+    // if (name === 'email') setEmail(value);
+    // if (name === 'password') setPassword(value);
+
+    setUserCredentials({ ...userCredentials, [name]: value });
   };
 
   return (

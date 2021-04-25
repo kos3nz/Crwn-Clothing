@@ -11,7 +11,7 @@ import { registerStart, registerFailure } from '../../redux/user/user.actions';
 
 //## =============== Component =============== ##//
 
-const Register = ({ registerStart, registerError, registerFailure }) => {
+const Register = ({ registerStart, registerFailure }) => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

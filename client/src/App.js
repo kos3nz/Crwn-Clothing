@@ -27,8 +27,7 @@ const App = ({ currentUser, checkUserSession }) => {
 
   useEffect(() => {
     checkUserSession();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [checkUserSession]);
 
   // useEffect(() => {
   // const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {

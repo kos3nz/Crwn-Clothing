@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { createStructuredSelector } from 'reselect';
 
-import CollectionOverviewContainer from '../../components/collections-overview/collections-overview.container';
+import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
 import CollectionPageContainer from '../collection/collection.container';
 // import WithSpinner from '../../components/with-spinner/with-spinner.component';
 
@@ -28,8 +28,7 @@ import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 const ShopPage = ({ match, fetchCollectionsStart }) => {
   useEffect(() => {
     fetchCollectionsStart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fetchCollectionsStart]);
 
   return (
     <div className="shop-page">
@@ -42,7 +41,7 @@ const ShopPage = ({ match, fetchCollectionsStart }) => {
       <Route
         exact
         path={`${match.path}`}
-        component={CollectionOverviewContainer}
+        component={CollectionsOverviewContainer}
       />
       {/* <Route path={`${match.path}/:collectionId`} component={CollectionPage} /> */}
       <Route
