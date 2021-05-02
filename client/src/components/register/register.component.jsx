@@ -105,7 +105,9 @@ const Register = ({ registerStart, registerFailure }) => {
           label="Confirm Password"
           required
         />
-        <CustomButton type="submit">Register</CustomButton>
+        <CustomButton type="submit" className="register__button">
+          Register
+        </CustomButton>
       </form>
     </div>
   );
