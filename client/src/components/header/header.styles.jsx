@@ -7,6 +7,12 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
+
+  @media only screen and (max-width: 900px) {
+    height: 60px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
 `;
 
 export const LogoContainer = styled(Link)`
@@ -15,6 +21,10 @@ export const LogoContainer = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media only screen and (max-width: 900px) {
+    width: 50px;
+  }
 `;
 
 export const OptionsContainer = styled.div`
@@ -23,6 +33,10 @@ export const OptionsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
+  @media only screen and (max-width: 900px) {
+    width: 80%;
+  }
 `;
 
 const OptionContainerStyles = css`
@@ -34,6 +48,11 @@ const OptionContainerStyles = css`
   margin-left: 10px;
   border-radius: 2px;
   transition: all 0.3s;
+
+  @media only screen and (max-width: 900px) {
+    padding: 10px;
+    margin-left: 0;
+  }
 
   &:hover {
     background-color: #444;

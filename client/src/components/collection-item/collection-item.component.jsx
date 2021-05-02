@@ -14,6 +14,13 @@ const additionalStyleForButton = css`
   position: absolute;
   top: 70%;
   display: none;
+
+  @media only screen and (max-width: 900px) {
+    display: block;
+    opacity: 0.9;
+    min-width: unset;
+    padding: 0 5px;
+  }
 `;
 
 const CollectionItemButton = styled(CustomButton)`

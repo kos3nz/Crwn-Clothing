@@ -14,10 +14,22 @@
     justify-content: center;
     align-items: center;
 
+    @media only screen and (max-width: 900px) {
+      height: 22vw;
+    }
+
+    @media only screen and (max-width: 500px) {
+      width: 21%;
+    }
+
     img {
       width: 50%;
       height: 100%;
       object-fit: cover;
+
+      @media only screen and (max-width: 900px) {
+        width: 75%;
+      }
     }
   }
   .name,
@@ -26,6 +38,11 @@
     width: 23%;
     display: flex;
     justify-content: center;
+
+    @media only screen and (max-width: 500px) {
+      width: 21%;
+      font-size: 18px;
+    }
   }
 
   .quantity {
@@ -45,5 +62,9 @@
     justify-content: center;
     cursor: pointer;
     font-weight: bold;
+
+    @media only screen and (max-width: 500px) {
+      width: 16%;
+    }
   }
 }

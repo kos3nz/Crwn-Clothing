@@ -4,6 +4,10 @@
   margin-bottom: 30px;
   justify-content: center;
 
+  @media only screen and (max-width: 900px) {
+    align-items: center;
+  }
+
   .title {
     font-size: 28px;
     font-weight: bold;
@@ -20,6 +24,16 @@
       transition: width 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
+    @media only screen and (max-width: 900px) {
+      align-self: center;
+      margin: 10px 0 15px;
+
+      &::after {
+        width: 100%;
+        transition: unset;
+      }
+    }
+
     &:hover {
       &::after {
         width: 100%;
@@ -30,5 +44,11 @@
   .preview {
     display: flex;
     justify-content: space-between;
+
+    @media only screen and (max-width: 900px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
   }
 }

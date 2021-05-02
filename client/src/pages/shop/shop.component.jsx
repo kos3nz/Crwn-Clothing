@@ -33,7 +33,7 @@ const ShopPage = ({ match, fetchCollectionsStart }) => {
   return (
     <div className="shop-page">
       <LinkOverlay>
-        <H1Link to="/shop" alignself="center" mgbtm="20px">
+        <H1Link to="/shop" alignself="center" mgbtm="10px">
           Shop
         </H1Link>
       </LinkOverlay>

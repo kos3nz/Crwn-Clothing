@@ -13,8 +13,26 @@
 
     .collection-item__button {
       opacity: 0.95;
-      display: flex;
+      display: block;
     }
+  }
+
+  @media only screen and (max-width: 900px) {
+    width: 40vw;
+
+    &:hover {
+      .image {
+        opacity: unset;
+      }
+
+      .collection-item__button {
+        opacity: unset;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    height: 270px;
   }
 
   .image {

@@ -11,6 +11,10 @@
   right: 50px;
   z-index: 5;
 
+  @media screen and (max-width: 900px) {
+    right: 25px;
+  }
+
   .cart-items {
     // height: 240px;
     display: flex;

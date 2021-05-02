@@ -5,10 +5,12 @@ const defaultButtonStyles = css`
   background-color: #444;
   color: #eee;
 
-  &:hover {
-    background-color: #eee;
-    color: #444;
-    border: 1px solid #444;
+  @media only screen and (min-width: 900px) {
+    &:hover {
+      background-color: #eee;
+      color: #444;
+      border: 1px solid #444;
+    }
   }
 `;
 
@@ -17,8 +19,10 @@ const googleSigninButtonStyles = css`
   background-color: #4285f4;
   color: #eee;
 
-  &:hover {
-    background-color: #3371d6;
+  @media only screen and (min-width: 900px) {
+    &:hover {
+      background-color: #3371d6;
+    }
   }
 `;
 
@@ -27,10 +31,12 @@ const invertedButtonStyles = css`
   color: #444;
   border: 1px solid #444;
 
-  &:hover {
-    background-color: #444;
-    color: #eee;
-    border: none;
+  @media only screen and (min-width: 900px) {
+    &:hover {
+      background-color: #444;
+      color: #eee;
+      border: none;
+    }
   }
 `;
 

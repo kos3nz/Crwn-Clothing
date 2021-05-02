@@ -38,20 +38,22 @@ export const H1Link = styled(Link)`
     return alignself && `${alignself}`;
   }};
 
-  &::after {
-    content: '';
-    display: block;
-    height: 5px;
-    width: 100%;
-    background-color: #444;
-    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transform: scaleX(0);
-    /* transform-origin: center; */
-  }
-
-  &:hover {
+  @media only screen and (min-width: 900px) {
     &::after {
-      transform: scaleX(1);
+      content: '';
+      display: block;
+      height: 5px;
+      width: 100%;
+      background-color: #444;
+      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transform: scaleX(0);
+      /* transform-origin: center; */
+    }
+
+    &:hover {
+      &::after {
+        transform: scaleX(1);
+      }
     }
   }
 `;

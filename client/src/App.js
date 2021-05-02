@@ -3,12 +3,14 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import './App.css';
 import Header from './components/header/header.component';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndRegisterPage from './pages/sign-in-and-register/sign-in-and-register.component';
 import CheckoutPage from './pages/checkout/checkout.component';
+
+// import './App.css';
+import { GlobalStyle } from './global.styles';
 
 // import {
 //   auth,
@@ -66,6 +68,7 @@ const App = ({ currentUser, checkUserSession }) => {
 
   return (
     <>
+      <GlobalStyle />
       {/* By putting Header component outside of the Switch, the Header is always present and rendered */}
       <Header />
       {/* Inside of a Switch component, even if multiple paths match the url, the only one page will be rendered*/}
