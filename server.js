@@ -1,6 +1,7 @@
 const express = require('express');
 // const cors = require('cors');
 const path = require('path'); // node.js built-in module
+const compression = require('compression');
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
@@ -9,6 +10,8 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const app = express();
 const port = process.env.PORT || 8080;
 
+// Compression for gzipping on heroku
+app.use(compression());
 // Parsing json bodies
 app.use(express.json({ limit: '10kb' }));
 // Parsing url encoded bodies
