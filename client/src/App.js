@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import Header from './components/header/header.component';
-import HomePage from './pages/homepage/homepage.component';
-import ShopPage from './pages/shop/shop.component';
-import SignInAndRegisterPage from './pages/sign-in-and-register/sign-in-and-register.component';
-import CheckoutPage from './pages/checkout/checkout.component';
+// import HomePage from './pages/homepage/homepage.component';
+// import ShopPage from './pages/shop/shop.component';
+// import SignInAndRegisterPage from './pages/sign-in-and-register/sign-in-and-register.component';
+// import CheckoutPage from './pages/checkout/checkout.component';
+import ErrorBoundary from './components/error-boundary/error-boundary.component';
 
 // import './App.css';
 import { GlobalStyle } from './global.styles';
@@ -21,6 +22,17 @@ import { GlobalStyle } from './global.styles';
 import { checkUserSession } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 // import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
+
+//## =============== Code Splitting =============== ##//
+
+import Spinner from './components/spinner/spinner.component';
+
+const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
+const ShopPage = lazy(() => import('./pages/shop/shop.component'));
+const SignInAndRegisterPage = lazy(() =>
+  import('./pages/sign-in-and-register/sign-in-and-register.component')
+);
+const CheckoutPage = lazy(() => import('./pages/checkout/checkout.component'));
 
 //## =============== Component =============== ##//
 
@@ -73,17 +85,21 @@ const App = ({ currentUser, checkUserSession }) => {
       <Header />
       {/* Inside of a Switch component, even if multiple paths match the url, the only one page will be rendered*/}
       <Switch>
-        {/* means exact={true} */}
-        <Route exact path="/" component={HomePage} />
-        <Route path="/shop" component={ShopPage} />
-        <Route exact path="/checkout" component={CheckoutPage} />
-        <Route
-          exact
-          path="/signin"
-          render={() =>
-            currentUser ? <Redirect to="/" /> : <SignInAndRegisterPage />
-          }
-        />
+        <ErrorBoundary>
+          <Suspense fallback={<Spinner />}>
+            {/* means exact={true} */}
+            <Route exact path="/" component={HomePage} />
+            <Route path="/shop" component={ShopPage} />
+            <Route exact path="/checkout" component={CheckoutPage} />
+            <Route
+              exact
+              path="/signin"
+              render={() =>
+                currentUser ? <Redirect to="/" /> : <SignInAndRegisterPage />
+              }
+            />
+          </Suspense>
+        </ErrorBoundary>
       </Switch>
     </>
   );

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import './cart-item.styles.scss';
 
 //## =============== Component =============== ##//
@@ -16,4 +18,4 @@ const CartItem = ({ item: { imageUrl, price, name, quantity } }) => (
 
 //## =============== Export =============== ##//
 
-export default CartItem;
+export default React.memo(CartItem);

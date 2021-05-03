@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { createStructuredSelector } from 'reselect';
 
-import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
-import CollectionPageContainer from '../collection/collection.container';
+// import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
+// import CollectionPageContainer from '../collection/collection.container';
 // import WithSpinner from '../../components/with-spinner/with-spinner.component';
 
 import {
@@ -17,6 +17,17 @@ import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 // selectIsCollectionsFetching,
 // selectIsCollectionsLoaded,
 // } from '../../redux/shop/shop.selectors';
+
+//## =============== Code Splitting =============== ##//
+
+import Spinner from '../../components/spinner/spinner.component';
+
+const CollectionsOverviewContainer = lazy(() =>
+  import('../../components/collections-overview/collections-overview.container')
+);
+const CollectionPageContainer = lazy(() =>
+  import('../collection/collection.container.jsx')
+);
 
 //## =============== Component =============== ##//
 
@@ -38,23 +49,25 @@ const ShopPage = ({ match, fetchCollectionsStart }) => {
         </H1Link>
       </LinkOverlay>
       {/* <Route exact path={`${match.path}`} component={CollectionOverview} /> */}
-      <Route
-        exact
-        path={`${match.path}`}
-        component={CollectionsOverviewContainer}
-      />
-      {/* <Route path={`${match.path}/:collectionId`} component={CollectionPage} /> */}
-      <Route
-        path={`${match.path}/:collectionId`}
-        component={CollectionPageContainer}
-        // render={(props) => (
-        //   // passing props containing {history, location, match}
-        //   <CollectionPageWithSpinner
-        //     isLoading={!isCollectionsLoaded}
-        //     {...props}
-        //   />
-        // )}
-      />
+      <Suspense fallback={<Spinner />}>
+        <Route
+          exact
+          path={`${match.path}`}
+          component={CollectionsOverviewContainer}
+        />
+        {/* <Route path={`${match.path}/:collectionId`} component={CollectionPage} /> */}
+        <Route
+          path={`${match.path}/:collectionId`}
+          component={CollectionPageContainer}
+          // render={(props) => (
+          //   // passing props containing {history, location, match}
+          //   <CollectionPageWithSpinner
+          //     isLoading={!isCollectionsLoaded}
+          //     {...props}
+          //   />
+          // )}
+        />
+      </Suspense>
     </div>
   );
 };

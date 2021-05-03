@@ -8,12 +8,17 @@ import { H1 } from '../../components/styled-components/text.styled.jsx';
 
 //## =============== Component =============== ##//
 
-const Homepage = () => (
-  <HomePageContainer>
-    <H1 mgbtm="20px">Crwn Clothing</H1>
-    <Directory />
-  </HomePageContainer>
-);
+const Homepage = () => {
+  // Testing for error boundary component
+  // throw Error;
+
+  return (
+    <HomePageContainer>
+      <H1 mgbtm="20px">Crwn Clothing</H1>
+      <Directory />
+    </HomePageContainer>
+  );
+};
 
 //## =============== Export =============== ##//
 

@@ -1,10 +1,9 @@
-import { SpinnerOverlay, SpinnerContainer } from './with-spinner.styles';
+// import { SpinnerOverlay, SpinnerContainer } from './with-spinner.styles';
+import Spinner from '../spinner/spinner.component.jsx';
 
 const WithSpinner = (WrappedComponent) => ({ isLoading, ...otherProps }) => {
   return isLoading ? (
-    <SpinnerOverlay>
-      <SpinnerContainer />
-    </SpinnerOverlay>
+    <Spinner />
   ) : (
     // This way I can pass through the props to the component I wrap
     <WrappedComponent {...otherProps} />
