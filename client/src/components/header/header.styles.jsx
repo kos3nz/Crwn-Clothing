@@ -2,16 +2,25 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const HeaderContainer = styled.div`
-  height: 70px;
+  /* height: 75px; */
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
+  /* margin-bottom: 25px; */
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #eee;
+  z-index: 100;
+  padding: 25px 40px 20px;
+  transition: all 0.4s;
 
   @media only screen and (max-width: 900px) {
-    height: 60px;
-    padding: 10px;
-    margin-bottom: 20px;
+    padding: 20px 40px 10px;
+  }
+
+  @media only screen and (max-width: 500px) {
+    padding: 12px 20px 10px;
   }
 `;
 
@@ -51,7 +60,11 @@ const OptionContainerStyles = css`
 
   @media only screen and (max-width: 900px) {
     padding: 10px;
+  }
+
+  @media only screen and (max-width: 500px) {
     margin-left: 0;
+    font-size: 16px;
   }
 
   &:hover {

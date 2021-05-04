@@ -14,4 +14,17 @@ export const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+
+  .contents {
+    position: relative;
+    top: 75px;
+
+    @media only screen and (max-width: 900px) {
+      top: 70px;
+    }
+    
+    @media only screen and (max-width: 500px) {
+      top: 65px;
+    }
+  }
 `;

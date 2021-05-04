@@ -84,23 +84,25 @@ const App = ({ currentUser, checkUserSession }) => {
       {/* By putting Header component outside of the Switch, the Header is always present and rendered */}
       <Header />
       {/* Inside of a Switch component, even if multiple paths match the url, the only one page will be rendered*/}
-      <Switch>
-        <ErrorBoundary>
-          <Suspense fallback={<Spinner />}>
-            {/* means exact={true} */}
-            <Route exact path="/" component={HomePage} />
-            <Route path="/shop" component={ShopPage} />
-            <Route exact path="/checkout" component={CheckoutPage} />
-            <Route
-              exact
-              path="/signin"
-              render={() =>
-                currentUser ? <Redirect to="/" /> : <SignInAndRegisterPage />
-              }
-            />
-          </Suspense>
-        </ErrorBoundary>
-      </Switch>
+      <div className="contents">
+        <Switch>
+          <ErrorBoundary>
+            <Suspense fallback={<Spinner />}>
+              {/* means exact={true} */}
+              <Route exact path="/" component={HomePage} />
+              <Route path="/shop" component={ShopPage} />
+              <Route exact path="/checkout" component={CheckoutPage} />
+              <Route
+                exact
+                path="/signin"
+                render={() =>
+                  currentUser ? <Redirect to="/" /> : <SignInAndRegisterPage />
+                }
+              />
+            </Suspense>
+          </ErrorBoundary>
+        </Switch>
+      </div>
     </>
   );
 };
