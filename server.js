@@ -2,6 +2,7 @@ const express = require('express');
 // const cors = require('cors');
 const path = require('path'); // node.js built-in module
 const compression = require('compression');
+const enforce = require('express-sslify');
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
@@ -23,6 +24,9 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 // Serving static files
 if (process.env.NODE_ENV === 'production') {
+  // to make sure the code doesn't require you to use https in development.
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
+
   app.use(express.static(path.join(__dirname, 'client/build')));
 
   // for every url that users get
@@ -35,6 +39,11 @@ if (process.env.NODE_ENV === 'production') {
 app.listen(port, (error) => {
   if (error) throw error;
   console.log('Server running on port ' + port);
+});
+
+app.get('/service-worker.js', (req, res) => {
+  console.log(__dirname);
+  res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
 });
 
 // Payment route
