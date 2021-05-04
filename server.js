@@ -42,8 +42,8 @@ app.listen(port, (error) => {
 });
 
 app.get('/service-worker.js', (req, res) => {
-  console.log(__dirname);
-  res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
+  res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js')); // なぜここで一つレベルがあがるのかわからない
+  // res.sendFile(path.resolve(__dirname, 'client/build', 'service-worker.js')); でも動いた
 });
 
 // Payment route
