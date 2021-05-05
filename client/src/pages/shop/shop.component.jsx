@@ -7,10 +7,11 @@ import { connect } from 'react-redux';
 // import CollectionPageContainer from '../collection/collection.container';
 // import WithSpinner from '../../components/with-spinner/with-spinner.component';
 
+import { ShopPageContainer } from './shop.styles';
 import {
   H1Link,
   LinkOverlay,
-} from '../../components/styled-components/text.styled.jsx';
+} from '../../components/styled-components/text.styled';
 
 import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 // import {
@@ -42,7 +43,7 @@ const ShopPage = ({ match, fetchCollectionsStart }) => {
   }, [fetchCollectionsStart]);
 
   return (
-    <div className="shop-page">
+    <ShopPageContainer>
       <LinkOverlay>
         <H1Link to="/shop" alignself="center" mgbtm="10px">
           Shop
@@ -68,7 +69,7 @@ const ShopPage = ({ match, fetchCollectionsStart }) => {
           // )}
         />
       </Suspense>
-    </div>
+    </ShopPageContainer>
   );
 };
 

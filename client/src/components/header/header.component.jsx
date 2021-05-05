@@ -58,7 +58,9 @@ const Header = ({ currentUser, hidden, signOutStart }) => {
         isTop
           ? { boxShadow: 'none' }
           : {
-              boxShadow: '0 1px 10px #444',
+              boxShadow: '0 1px 8px #444',
+              paddingTop: '15px',
+              paddingBottom: '10px',
             }
       }
     >

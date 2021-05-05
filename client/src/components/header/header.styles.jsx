@@ -12,15 +12,24 @@ export const HeaderContainer = styled.div`
   right: 0;
   background-color: #eee;
   z-index: 100;
-  padding: 25px 40px 20px;
+  padding-top: 25px;
+  padding-bottom: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
   transition: all 0.4s;
 
   @media only screen and (max-width: 900px) {
-    padding: 20px 40px 10px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
   }
 
   @media only screen and (max-width: 500px) {
-    padding: 12px 20px 10px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 `;
 

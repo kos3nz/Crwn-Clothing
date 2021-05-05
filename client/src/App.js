@@ -9,6 +9,7 @@ import Header from './components/header/header.component';
 // import SignInAndRegisterPage from './pages/sign-in-and-register/sign-in-and-register.component';
 // import CheckoutPage from './pages/checkout/checkout.component';
 import ErrorBoundary from './components/error-boundary/error-boundary.component';
+import Footer from './components/footer/footer.component.jsx';
 
 // import './App.css';
 import { GlobalStyle } from './global.styles';
@@ -103,6 +104,7 @@ const App = ({ currentUser, checkUserSession }) => {
           </ErrorBoundary>
         </Switch>
       </div>
+      <Footer />
     </>
   );
 };
