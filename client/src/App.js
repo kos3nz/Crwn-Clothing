@@ -30,6 +30,7 @@ import Spinner from './components/spinner/spinner.component';
 
 const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
 const ShopPage = lazy(() => import('./pages/shop/shop.component'));
+const ContactPage = lazy(() => import('./pages/contact/contact.component'));
 const SignInAndRegisterPage = lazy(() =>
   import('./pages/sign-in-and-register/sign-in-and-register.component')
 );
@@ -92,7 +93,7 @@ const App = ({ currentUser, checkUserSession }) => {
               {/* means exact={true} */}
               <Route exact path="/" component={HomePage} />
               <Route path="/shop" component={ShopPage} />
-              <Route exact path="/checkout" component={CheckoutPage} />
+              <Route exact path="/contact" component={ContactPage} />
               <Route
                 exact
                 path="/signin"
@@ -100,6 +101,7 @@ const App = ({ currentUser, checkUserSession }) => {
                   currentUser ? <Redirect to="/" /> : <SignInAndRegisterPage />
                 }
               />
+              <Route exact path="/checkout" component={CheckoutPage} />
             </Suspense>
           </ErrorBoundary>
         </Switch>

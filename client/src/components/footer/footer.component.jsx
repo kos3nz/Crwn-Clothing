@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import {
   FooterContainer,
   FooterList,
@@ -13,23 +15,28 @@ import {
 const footerMenu = [
   'Find Our store',
   'Shipping',
-  'Download Our Catalog',
+  'Privacy Policy',
   'Contact Us',
   'Work with us',
+  'Terms & Conditions',
 ];
 
 const Footer = () => (
   <FooterContainer>
     <FooterList>
-      {footerMenu.map((str) => (
-        <FooterItem key={str}>
-          <button>{str}</button>
+      {footerMenu.map((val) => (
+        <FooterItem key={val}>
+          {val === 'Contact Us' ? (
+            <Link to="/contact">{val}</Link>
+          ) : (
+            <button>{val}</button>
+          )}
         </FooterItem>
       ))}
     </FooterList>
     <CopyrightAndIcons>
       <Copyright>
-        &copy; Copyright 2021 by Crwn Clothing. I appreciate this amazing
+        &copy; Copyright 2021 @ Crwn Clothing. I appreciate this amazing
         react/redux course. I've learned a lot of stuff and had so much fun!
         Thank you, Yihua and Andrei.
       </Copyright>

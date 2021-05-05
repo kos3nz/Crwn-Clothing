@@ -58,9 +58,9 @@ const Header = ({ currentUser, hidden, signOutStart }) => {
         isTop
           ? { boxShadow: 'none' }
           : {
-              boxShadow: '0 1px 8px #444',
-              paddingTop: '15px',
-              paddingBottom: '10px',
+              boxShadow: '0 .5px 5px #444',
+              paddingTop: '10px',
+              paddingBottom: '5px',
             }
       }
     >
@@ -69,7 +69,7 @@ const Header = ({ currentUser, hidden, signOutStart }) => {
       </LogoContainer>
       <OptionsContainer>
         <OptionLink to="/shop">SHOP</OptionLink>
-        <OptionLink to="/shop">CONTACT</OptionLink>
+        <OptionLink to="/contact">CONTACT</OptionLink>
         {currentUser ? (
           // <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>
           <OptionLink as="div" onClick={signOutStart}>

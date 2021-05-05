@@ -3,7 +3,8 @@ import { withRouter } from 'react-router-dom';
 import './menu-item.styles.scss';
 
 const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }) => (
-  // match.url(= the current page url), linkUrl(= shop/hats)
+  // match.url = the current page url
+  // linkUrl = shop/hats
   <div
     className={`menu-item ${size}`}
     onClick={() => {

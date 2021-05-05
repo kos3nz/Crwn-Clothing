@@ -25,11 +25,23 @@ export const FooterList = styled.ul`
   gap: 30px;
 `;
 
+const footerItemStyle = css`
+  color: #eee;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: capitalize;
+  transition: all 0.3s;
+
+  @media only screen and (max-width: 500px) {
+    font-size: 12px;
+  }
+`;
+
 export const FooterItem = styled.li`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  padding: 0 10px 10px;
+  padding: 0 10px 5px;
   border-bottom: 1px solid #777;
   cursor: pointer;
   transition: all 0.3s;
@@ -37,25 +49,22 @@ export const FooterItem = styled.li`
   button {
     border: none;
     background-color: unset;
-    color: #eee;
     font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-    text-transform: capitalize;
-    transition: all 0.3s;
+    ${footerItemStyle}
+  }
 
-    @media only screen and (max-width: 500px) {
-      font-size: 12px;
-    }
+  a {
+    ${footerItemStyle}
   }
 
   &:hover,
-  :active {
+  &:active {
     border-bottom: 1px solid #eee;
   }
 
-  &:hover button {
-    transform: translateY(-8px);
+  &:hover button,
+  &:hover a {
+    transform: translateY(-5px);
   }
 `;
 
