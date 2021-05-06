@@ -8,11 +8,18 @@
   border: 1px solid #444;
   background-color: #eee;
   top: 80px;
-  right: 50px;
+  right: 40px;
   z-index: 5;
+  transition: all 0.3s;
 
   @media screen and (max-width: 900px) {
+    width: 250px;
     right: 25px;
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 220px;
+    right: 20px;
   }
 
   .cart-items {

@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -13,10 +14,15 @@ import {
 } from '../../redux/cart/cart.selectors';
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 
+import { HeaderContext } from '../header/header.component';
+
 const CartDropdown = ({ cartItems, total, history, dispatch }) => {
+  const { isTop } = useContext(HeaderContext);
+  console.log(isTop);
+
   // console.log('CartDropdown rendered');
   return (
-    <div className="cart-dropdown">
+    <div className="cart-dropdown" style={isTop ? null : { top: '60px' }}>
       <div className="cart-items">
         {cartItems.length ? (
           cartItems.map((cartItem) => (

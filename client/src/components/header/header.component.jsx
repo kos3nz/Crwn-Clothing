@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 // import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -22,6 +22,12 @@ import {
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 // ReactComponent is a special syntax in React for importing SVG.
 
+//## =============== Context Provider =============== ##//
+
+export const HeaderContext = createContext({
+  isTop: true,
+});
+
 //## =============== Helper Function =============== ##//
 
 // scroll位置を取得
@@ -40,7 +46,7 @@ const Header = ({ currentUser, hidden, signOutStart }) => {
 
   const onScroll = () => {
     const position = scrollTop();
-    if (position <= 15) setIsTop(true);
+    if (position <= 10) setIsTop(true);
     else setIsTop(false);
   };
 
@@ -53,36 +59,38 @@ const Header = ({ currentUser, hidden, signOutStart }) => {
   }, [isTop]);
 
   return (
-    <HeaderContainer
-      style={
-        isTop
-          ? { boxShadow: 'none' }
-          : {
-              boxShadow: '0 .5px 5px #444',
-              paddingTop: '10px',
-              paddingBottom: '5px',
-            }
-      }
-    >
-      <LogoContainer to="/">
-        <Logo />
-      </LogoContainer>
-      <OptionsContainer>
-        <OptionLink to="/shop">SHOP</OptionLink>
-        <OptionLink to="/contact">CONTACT</OptionLink>
-        {currentUser ? (
-          // <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>
-          <OptionLink as="div" onClick={signOutStart}>
-            SIGN OUT
-          </OptionLink>
-        ) : (
-          <OptionLink to="/signin">SIGN IN</OptionLink>
-        )}
-        <CartIcon />
-      </OptionsContainer>
-      {/* if hidden is true, show nothing, if it's false, CartDropdown will be visible */}
-      {hidden || <CartDropdownContainer />}
-    </HeaderContainer>
+    <HeaderContext.Provider value={{ isTop }}>
+      <HeaderContainer
+        style={
+          isTop
+            ? { boxShadow: 'none' }
+            : {
+                boxShadow: '0 .5px 5px #444',
+                paddingTop: '10px',
+                paddingBottom: '5px',
+              }
+        }
+      >
+        <LogoContainer to="/">
+          <Logo />
+        </LogoContainer>
+        <OptionsContainer>
+          <OptionLink to="/shop">SHOP</OptionLink>
+          <OptionLink to="/contact">CONTACT</OptionLink>
+          {currentUser ? (
+            // <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>
+            <OptionLink as="div" onClick={signOutStart}>
+              SIGN OUT
+            </OptionLink>
+          ) : (
+            <OptionLink to="/signin">SIGN IN</OptionLink>
+          )}
+          <CartIcon />
+        </OptionsContainer>
+        {/* if hidden is true, show nothing, if it's false, CartDropdown will be visible */}
+        {hidden || <CartDropdownContainer />}
+      </HeaderContainer>
+    </HeaderContext.Provider>
   );
 };
 

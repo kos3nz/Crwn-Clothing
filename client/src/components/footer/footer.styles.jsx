@@ -31,9 +31,18 @@ const footerItemStyle = css`
   font-weight: bold;
   text-transform: capitalize;
   transition: all 0.3s;
+  cursor: pointer;
+  padding-bottom: 3px;
+  width: 100%;
+  pointer-events: auto; /* trigger parents hover event when hovering button or a element*/
 
   @media only screen and (max-width: 500px) {
     font-size: 12px;
+  }
+
+  &:hover,
+  &:active {
+    transform: translateY(-5px);
   }
 `;
 
@@ -41,10 +50,9 @@ export const FooterItem = styled.li`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  padding: 0 10px 5px;
-  border-bottom: 1px solid #777;
-  cursor: pointer;
   transition: all 0.3s;
+  border-bottom: 1px solid #777;
+  pointer-events: none; /* prevent triggering hover event when hovering li element */
 
   button {
     border: none;
@@ -54,17 +62,13 @@ export const FooterItem = styled.li`
   }
 
   a {
+    display: flex;
+    justify-content: center;
     ${footerItemStyle}
   }
 
-  &:hover,
-  &:active {
+  &:hover {
     border-bottom: 1px solid #eee;
-  }
-
-  &:hover button,
-  &:hover a {
-    transform: translateY(-5px);
   }
 `;
 
@@ -110,6 +114,11 @@ const iconStyles = css`
   fill: #eee;
   margin-left: 20px;
   transition: all 0.3s;
+`;
+
+export const IconLink = styled.a`
+  display: flex;
+  align-items: center;
 `;
 
 export const InstagramIcon = styled(Instagram)`

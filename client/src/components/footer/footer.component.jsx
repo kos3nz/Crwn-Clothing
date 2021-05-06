@@ -7,6 +7,7 @@ import {
   CopyrightAndIcons,
   Copyright,
   IconsContainer,
+  IconLink,
   InstagramIcon,
   FacebookIcon,
   TwitterIcon,
@@ -41,7 +42,13 @@ const Footer = () => (
         Thank you, Yihua and Andrei.
       </Copyright>
       <IconsContainer>
-        <InstagramIcon />
+        <IconLink
+          href="https://www.instagram.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <InstagramIcon />
+        </IconLink>
         <FacebookIcon />
         <TwitterIcon />
       </IconsContainer>

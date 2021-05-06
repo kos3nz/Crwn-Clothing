@@ -21,15 +21,12 @@ export const HeaderContainer = styled.div`
   @media only screen and (max-width: 900px) {
     padding-top: 20px;
     padding-bottom: 10px;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   @media only screen and (max-width: 500px) {
-    padding-top: 20px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
+    height: 60px;
   }
 `;
 
