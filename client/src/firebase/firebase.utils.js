@@ -12,6 +12,8 @@ const firebaseConfig = {
   measurementId: 'G-FDHXK42CFB',
 };
 
+//:: =============== Create document for user =============== :://
+
 export const createUserProfileDocument = async (
   userAuth,
   additionalData = {}
@@ -20,16 +22,14 @@ export const createUserProfileDocument = async (
 
   // Retrieving user documentRef (still not the actual data, because I actually don't know if the data exists at this point)
   const userRef = firestore.doc(`users/${userAuth.uid}`);
-  // console.log('Reference:');
-  // console.log(userRef);
+  // console.log({userRef});
 
   // Fetching the data from the reference
   // documentRef returns a documentSnapshot
   // collectionRef returns a querySnapshot
   // Snapshot cannot use CRUD methods, it's just representing the data
   const snapShot = await userRef.get();
-  // console.log('Snapshot:');
-  // console.log(snapShot);
+  // console.log({snapShot});
 
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
@@ -49,6 +49,8 @@ export const createUserProfileDocument = async (
 
   return userRef;
 };
+
+//:: =============== Upload collection data to firestore =============== :://
 
 export const addCollectionAndDocuments = async (
   collectionKey,
@@ -72,6 +74,8 @@ export const addCollectionAndDocuments = async (
   return await batch.commit();
 };
 
+//:: =============== Convert array data type to object data type =============== :://
+
 export const convertCollectionSnapshotToMap = (collections) => {
   const transformedCollection = collections.docs.map((doc) => {
     const { title, items } = doc.data();
@@ -91,7 +95,9 @@ export const convertCollectionSnapshotToMap = (collections) => {
   }, {});
 };
 
-//## Promise needs to be returned so that sagas can yield and work with it
+//:: =============== Check if user is logging in =============== :://
+
+// Promise needs to be returned so that sagas can yield and work with it
 export const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
     const unsubscribeFromAuth = auth.onAuthStateChanged((userAuth) => {
@@ -103,9 +109,33 @@ export const getCurrentUser = () => {
   });
 };
 
+//:: =============== Get user cart items reference =============== :://
+
+export const getUserCartRef = async (userId) => {
+  const cartsRef = firestore.collection('carts').where('userId', '==', userId);
+  const snapShot = await cartsRef.get();
+  // console.log(snapShot);
+
+  if (snapShot.empty) {
+    const cartDocRef = firestore.collection('carts').doc();
+    // console.log(cartDocRef);
+
+    await cartDocRef.set({
+      userId,
+      cartItems: [],
+    });
+
+    return cartDocRef;
+  } else {
+    const cartDocRef = snapShot.docs[0].ref;
+
+    return cartDocRef;
+  }
+};
+
 //## =============== Initializing Firebase App =============== ##//
 
-// "Firebase App named '[DEFAULT]' already exists" Error への対処
+// "Firebase App named '[DEFAULT]' already exists" の対処
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }

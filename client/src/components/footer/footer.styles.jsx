@@ -112,7 +112,6 @@ export const IconsContainer = styled.div`
 const iconStyles = css`
   width: 20px;
   fill: #eee;
-  margin-left: 20px;
   transition: all 0.3s;
 `;
 
@@ -129,6 +128,7 @@ export const InstagramIcon = styled(Instagram)`
   }
 `;
 export const FacebookIcon = styled(Facebook)`
+  margin-left: 20px;
   ${iconStyles}
 
   &:hover {
@@ -136,6 +136,7 @@ export const FacebookIcon = styled(Facebook)`
   }
 `;
 export const TwitterIcon = styled(Twitter)`
+  margin-left: 20px;
   ${iconStyles}
 
   &:hover {

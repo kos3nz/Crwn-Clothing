@@ -18,7 +18,7 @@ import { HeaderContext } from '../header/header.component';
 
 const CartDropdown = ({ cartItems, total, history, dispatch }) => {
   const { isTop } = useContext(HeaderContext);
-  console.log(isTop);
+  // console.log(isTop);
 
   // console.log('CartDropdown rendered');
   return (
