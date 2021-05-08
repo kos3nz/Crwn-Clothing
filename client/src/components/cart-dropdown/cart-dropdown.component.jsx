@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -18,11 +18,32 @@ import { HeaderContext } from '../header/header.component';
 
 const CartDropdown = ({ cartItems, total, history, dispatch }) => {
   const { isTop } = useContext(HeaderContext);
+  const cartDropdownRef = useRef();
   // console.log(isTop);
 
-  // console.log('CartDropdown rendered');
+  const handleClick = (e) => {
+    // if click inside dropdown element, do nothing
+    if (cartDropdownRef.current.contains(e.target)) return;
+    // if click outside, hide cart dropdown
+    dispatch(toggleCartHidden());
+  };
+
+  useEffect(() => {
+    // add mousedown event when mounted
+    document.addEventListener('mousedown', handleClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="cart-dropdown" style={isTop ? null : { top: '60px' }}>
+    <div
+      ref={cartDropdownRef}
+      className="cart-dropdown"
+      style={isTop ? null : { top: '60px' }}
+    >
       <div className="cart-items">
         {cartItems.length ? (
           cartItems.map((cartItem) => (
