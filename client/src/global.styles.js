@@ -6,6 +6,7 @@ export const GlobalStyle = createGlobalStyle`
     /* padding: 20px 60px 60px; */
     padding: 0;
     background-color: #eee;
+    color: #444;
 
     /* @media only screen and (max-width: 900px) {
       padding: 10px 10px 60px;
@@ -14,18 +15,5 @@ export const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
-  }
-
-  .contents {
-    position: relative;
-    top: 100px;
-
-    @media only screen and (max-width: 900px) {
-      top: 85px;
-    }
-
-    @media only screen and (max-width: 500px) {
-      top: 80px;
-    }
   }
 `;

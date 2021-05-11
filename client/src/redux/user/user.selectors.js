@@ -8,3 +8,8 @@ export const selectCurrentUser = createSelector(
 );
 
 export const selectError = createSelector([selectUser], (user) => user.error);
+
+export const selectUserHidden = createSelector(
+  [selectUser],
+  (user) => user.userHidden
+);

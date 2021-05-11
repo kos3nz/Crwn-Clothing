@@ -39,7 +39,7 @@ const ContactPage = () => {
         <form>
           <FormInput
             handleChange={handleChange}
-            label="title"
+            label="Title"
             type="text"
             name="title"
             value={title}

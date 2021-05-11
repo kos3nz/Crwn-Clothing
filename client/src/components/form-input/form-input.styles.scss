@@ -47,6 +47,15 @@ $main-color: #444;
     top: 10px;
     transition: 300ms ease all;
 
+    @media only screen and (max-width: 900px) {
+      font-size: 15px;
+    }
+
+    @media only screen and (max-width: 500px) {
+      top: 15px;
+      font-size: 13px;
+    }
+
     // focus が外れた後も value があれば label はそのままキープ
     &.shrink {
       @include shrinkLabel();

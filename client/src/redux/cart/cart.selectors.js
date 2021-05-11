@@ -8,7 +8,7 @@ const selectCart = (state) => state.cart;
 // select hidden prop
 export const selectCartHidden = createSelector(
   [selectCart],
-  (cart) => cart.hidden
+  (cart) => cart.cartHidden
 );
 
 // createSelector() を使って cartItems を memoize (= caching)

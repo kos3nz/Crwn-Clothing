@@ -3,6 +3,7 @@ import { UserActionTypes } from './user.types';
 const INITIAL_STATE = {
   currentUser: null,
   error: null,
+  userHidden: true,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -31,7 +32,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         error: action.payload,
       };
-
+    case UserActionTypes.USER_DROPDOWN_HIDDEN:
+      return {
+        ...state,
+        userHidden: !state.userHidden,
+      };
     default:
       return state;
   }

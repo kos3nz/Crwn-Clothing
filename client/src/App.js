@@ -2,6 +2,7 @@ import React, { useEffect, lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import styled from 'styled-components';
 
 import Header from './components/header/header.component';
 // import HomePage from './pages/homepage/homepage.component';
@@ -35,6 +36,23 @@ const SignInAndRegisterPage = lazy(() =>
   import('./pages/sign-in-and-register/sign-in-and-register.component')
 );
 const CheckoutPage = lazy(() => import('./pages/checkout/checkout.component'));
+const AccountPage = lazy(() => import('./pages/account/account.component'));
+
+//## =============== Styled Component =============== ##//
+
+const MainContent = styled.main`
+  position: relative;
+  top: 100px;
+  min-height: 60vh;
+
+  @media only screen and (max-width: 900px) {
+    top: 85px;
+  }
+
+  @media only screen and (max-width: 500px) {
+    top: 80px;
+  }
+`;
 
 //## =============== Component =============== ##//
 
@@ -86,7 +104,7 @@ const App = ({ currentUser, checkUserSession }) => {
       {/* By putting Header component outside of the Switch, the Header is always present and rendered */}
       <Header />
       {/* Inside of a Switch component, even if multiple paths match the url, the only one page will be rendered*/}
-      <div className="contents">
+      <MainContent>
         <Switch>
           <ErrorBoundary>
             <Suspense fallback={<Spinner />}>
@@ -102,10 +120,20 @@ const App = ({ currentUser, checkUserSession }) => {
                 }
               />
               <Route exact path="/checkout" component={CheckoutPage} />
+              <Route
+                path="/account/:sidenav"
+                render={({ match }) =>
+                  currentUser ? (
+                    <AccountPage params={match.params} />
+                  ) : (
+                    <Redirect to="/" />
+                  )
+                }
+              />
             </Suspense>
           </ErrorBoundary>
         </Switch>
-      </div>
+      </MainContent>
       <Footer />
     </>
   );

@@ -6,9 +6,14 @@ import { createStructuredSelector } from 'reselect';
 // import { auth } from '../../firebase/firebase.utils';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdownContainer from '../cart-dropdown/cart-dropdown.component';
+import UserAccount from '../user-account/user-account.component';
+import UserDropdown from '../dropdown/user-dropdown/user-dropdown.component';
 
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
-import { selectCurrentUser } from '../../redux/user/user.selectors';
+import {
+  selectCurrentUser,
+  selectUserHidden,
+} from '../../redux/user/user.selectors';
 import { signOutStart } from '../../redux/user/user.actions';
 
 import './header.styles.scss';
@@ -41,7 +46,7 @@ const scrollTop = () => {
 
 //## =============== Component =============== ##//
 
-const Header = ({ currentUser, hidden, signOutStart }) => {
+const Header = ({ currentUser, cartHidden, signOutStart, userHidden }) => {
   const [isTop, setIsTop] = useState(true);
 
   const onScroll = () => {
@@ -79,16 +84,17 @@ const Header = ({ currentUser, hidden, signOutStart }) => {
           <OptionLink to="/contact">CONTACT</OptionLink>
           {currentUser ? (
             // <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>
-            <OptionLink as="div" onClick={signOutStart}>
-              SIGN OUT
-            </OptionLink>
+            // <OptionLink as="div" onClick={signOutStart}>
+            <UserAccount hasTriangle />
           ) : (
+            // </OptionLink>
             <OptionLink to="/signin">SIGN IN</OptionLink>
           )}
           <CartIcon />
         </OptionsContainer>
-        {/* if hidden is true, show nothing, if it's false, CartDropdown will be visible */}
-        {hidden || <CartDropdownContainer />}
+        {/* if cartHidden is true, show nothing, if it's false, CartDropdown will be visible */}
+        {userHidden || <UserDropdown />}
+        {cartHidden || <CartDropdownContainer />}
       </HeaderContainer>
     </HeaderContext.Provider>
   );
@@ -99,7 +105,8 @@ const Header = ({ currentUser, hidden, signOutStart }) => {
 // createStructuredSelector() で selectors にまとめて state を渡す
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  hidden: selectCartHidden,
+  cartHidden: selectCartHidden,
+  userHidden: selectUserHidden,
 });
 
 // the state object passed as an argument is the root reducer

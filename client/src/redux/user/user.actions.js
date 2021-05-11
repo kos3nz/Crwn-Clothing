@@ -63,3 +63,9 @@ export const signOutFailure = (error) => ({
   type: UserActionTypes.SIGN_OUT_FAILURE,
   payload: error,
 });
+
+//## =============== Toggle user dropdown =============== ##//
+
+export const toggleUserHidden = () => ({
+  type: UserActionTypes.USER_DROPDOWN_HIDDEN,
+});
