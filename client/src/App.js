@@ -11,6 +11,7 @@ import Header from './components/header/header.component';
 // import CheckoutPage from './pages/checkout/checkout.component';
 import ErrorBoundary from './components/error-boundary/error-boundary.component';
 import Footer from './components/footer/footer.component.jsx';
+import Alert from './components/alert/alert.component';
 
 // import './App.css';
 import { GlobalStyle } from './global.styles';
@@ -24,6 +25,11 @@ import { GlobalStyle } from './global.styles';
 import { checkUserSession } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 // import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
+import {
+  selectShowAlert,
+  selectHasError,
+  selectAlertMessage,
+} from './redux/alert/alert.selectors';
 
 //## =============== Code Splitting =============== ##//
 
@@ -56,7 +62,13 @@ const MainContent = styled.main`
 
 //## =============== Component =============== ##//
 
-const App = ({ currentUser, checkUserSession }) => {
+const App = ({
+  currentUser,
+  showAlert,
+  hasError,
+  alertMessage,
+  checkUserSession,
+}) => {
   // const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
@@ -101,6 +113,8 @@ const App = ({ currentUser, checkUserSession }) => {
   return (
     <>
       <GlobalStyle />
+      {hasError && showAlert && <Alert error>{alertMessage}</Alert>}
+      {hasError || (showAlert && <Alert success>{alertMessage}</Alert>)}
       {/* By putting Header component outside of the Switch, the Header is always present and rendered */}
       <Header />
       {/* Inside of a Switch component, even if multiple paths match the url, the only one page will be rendered*/}
@@ -151,6 +165,9 @@ const App = ({ currentUser, checkUserSession }) => {
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   // collectionsArray: selectCollectionsForPreview,
+  showAlert: selectShowAlert,
+  hasError: selectHasError,
+  alertMessage: selectAlertMessage,
 });
 
 const mapDispatchToProps = (dispatch) => ({

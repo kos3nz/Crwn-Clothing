@@ -13,7 +13,8 @@ export const UserDropdownItemContainer = styled(Link)`
 
     &:hover {
       cursor: pointer;
-      background-color: #aaa;
+      background-color: #444;
+      color: #eee;
     }
   }
 `;

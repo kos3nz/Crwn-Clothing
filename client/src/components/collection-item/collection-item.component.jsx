@@ -2,9 +2,13 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 
 import CustomButton from '../custom-button/custom-button.component';
+import Heart from '../heart/heart.component';
+
 import { addItem } from '../../redux/cart/cart.actions';
 
 import './collection-item.styles.scss';
+
+import { useState } from 'react';
 
 //## =============== styled component =============== ##//
 
@@ -32,6 +36,12 @@ const CollectionItemButton = styled(CustomButton)`
 const CollectionItem = ({ item, addItem }) => {
   const { name, price, imageUrl } = item;
 
+  const [clicked, setClicked] = useState(false);
+
+  const handleClick = () => {
+    setClicked((clicked) => !clicked);
+  };
+
   return (
     <div className="collection-item">
       <div
@@ -51,6 +61,13 @@ const CollectionItem = ({ item, addItem }) => {
       >
         Add to cart
       </CollectionItemButton>
+      <Heart
+        top="10px"
+        right="10px"
+        clicked={clicked}
+        className="collection-item__heart"
+        onClick={handleClick}
+      />
     </div>
   );
 };

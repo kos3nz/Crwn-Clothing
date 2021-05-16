@@ -5,7 +5,7 @@ import { MyOrderWrapper } from './my-order.styles';
 const MyOrder = () => (
   <MyOrderWrapper>
     <h2>My Order History</h2>
-    <NoItems>You have no order history yet.</NoItems>
+    <NoItems>There is no order history.</NoItems>
   </MyOrderWrapper>
 );
 

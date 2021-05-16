@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   currentUser: null,
   error: null,
   userHidden: true,
+  updateError: null,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -36,6 +37,17 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         userHidden: !state.userHidden,
+      };
+    case UserActionTypes.UPDATE_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        currentUser: action.payload,
+        updateError: null,
+      };
+    case UserActionTypes.UPDATE_USER_PROFILE_FAILURE:
+      return {
+        ...state,
+        updateError: action.payload,
       };
     default:
       return state;

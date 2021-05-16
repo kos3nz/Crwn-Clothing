@@ -69,3 +69,20 @@ export const signOutFailure = (error) => ({
 export const toggleUserHidden = () => ({
   type: UserActionTypes.USER_DROPDOWN_HIDDEN,
 });
+
+//## =============== Update user profile =============== ##//
+
+export const updateUserProfileStart = (userCredentials) => ({
+  type: UserActionTypes.UPDATE_USER_PROFILE_START,
+  payload: userCredentials,
+});
+
+export const updateUserProfileSuccess = (user) => ({
+  type: UserActionTypes.UPDATE_USER_PROFILE_SUCCESS,
+  payload: user,
+});
+
+export const updateUserProfileFailure = (error) => ({
+  type: UserActionTypes.UPDATE_USER_PROFILE_FAILURE,
+  payload: error,
+});

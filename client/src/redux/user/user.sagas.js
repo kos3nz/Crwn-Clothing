@@ -1,6 +1,5 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
-
-import { UserActionTypes } from './user.types';
+import { takeLatest, put, all, call, select } from 'redux-saga/effects';
+// import firebase from 'firebase/app';
 
 import {
   auth,
@@ -8,6 +7,8 @@ import {
   createUserProfileDocument,
   getCurrentUser,
 } from '../../firebase/firebase.utils';
+
+import { UserActionTypes } from './user.types';
 import {
   signInSuccess,
   signInFailure,
@@ -15,7 +16,11 @@ import {
   signOutFailure,
   registerSuccess,
   registerFailure,
+  updateUserProfileSuccess,
+  updateUserProfileFailure,
 } from './user.actions';
+
+import { selectCurrentUser } from './user.selectors';
 
 // REVIEW: Redux-saga is pretty much like async/await function
 //## =============== Helper generator function =============== ##//
@@ -118,6 +123,39 @@ export function* onSignOutStart() {
   yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
 }
 
+//## =============== Update user Profile =============== ##//
+
+export function* updateUser({ payload: { displayName, email } }) {
+  try {
+    const userAuth = auth.currentUser;
+    console.log({ userAuth });
+    const userRef = yield call(createUserProfileDocument, userAuth);
+    console.log({ userRef });
+    const currentUser = yield select(selectCurrentUser);
+
+    yield userRef.update({ displayName });
+
+    // if (email !== '') {
+    //   // Re-Authentication step
+    //   const credential = firebase.auth.EmailAuthProvider.credential(
+    //     userNow.email,
+    //     userProvidedPassword
+    //   );
+    //   // Now you can use that to reauthenticate
+    //   yield userNow.reauthenticateWithCredential(credential);
+    // yield userNow.updateEmail(email);
+    // }
+
+    yield put(updateUserProfileSuccess({ ...currentUser, displayName }));
+  } catch (error) {
+    yield put(updateUserProfileFailure(error));
+  }
+}
+
+export function* onUpdateUserProfile() {
+  yield takeLatest(UserActionTypes.UPDATE_USER_PROFILE_START, updateUser);
+}
+
 //## =============== Combine sagas =============== ##//
 
 export function* userSagas() {
@@ -128,5 +166,6 @@ export function* userSagas() {
     call(onSignOutStart),
     call(onRegisterStart),
     call(onRegisterSuccess),
+    call(onUpdateUserProfile),
   ]);
 }

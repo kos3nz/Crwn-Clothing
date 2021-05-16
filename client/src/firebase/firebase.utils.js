@@ -22,7 +22,7 @@ export const createUserProfileDocument = async (
 
   // Retrieving user documentRef (still not the actual data, because I actually don't know if the data exists at this point)
   const userRef = firestore.doc(`users/${userAuth.uid}`);
-  // console.log({userRef});
+  // console.log({ userRef });
 
   // Fetching the data from the reference
   // documentRef returns a documentSnapshot

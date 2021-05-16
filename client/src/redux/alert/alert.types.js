@@ -1,0 +1,5 @@
+export const AlertActionTypes = {
+  SHOW_SUCCESS_ALERT: 'SHOW_SUCCESS_ALERT',
+  SHOW_ERROR_ALERT: 'SHOW_ERROR_ALERT',
+  HIDE_ALERT: 'HIDE_ALERT',
+};

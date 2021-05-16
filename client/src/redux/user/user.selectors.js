@@ -7,9 +7,14 @@ export const selectCurrentUser = createSelector(
   (user) => user.currentUser
 );
 
-export const selectError = createSelector([selectUser], (user) => user.error);
-
 export const selectUserHidden = createSelector(
   [selectUser],
   (user) => user.userHidden
+);
+
+export const selectError = createSelector([selectUser], (user) => user.error);
+
+export const selectUpdateError = createSelector(
+  [selectUser],
+  (user) => user.updateError
 );
