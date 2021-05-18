@@ -1,14 +1,16 @@
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
+import { createStructuredSelector } from 'reselect';
 
 import CustomButton from '../custom-button/custom-button.component';
-import Heart from '../heart/heart.component';
+import Heart from '../icons/heart/heart.component';
 
 import { addItem } from '../../redux/cart/cart.actions';
+import { toggleFavorite } from '../../redux/favorites/favorites.actions';
 
 import './collection-item.styles.scss';
 
-import { useState } from 'react';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 //## =============== styled component =============== ##//
 
@@ -33,14 +35,14 @@ const CollectionItemButton = styled(CustomButton)`
 
 //## =============== Component =============== ##//
 
-const CollectionItem = ({ item, addItem }) => {
+const CollectionItem = ({
+  item,
+  isFavorite,
+  addItem,
+  toggleFavorite,
+  // currentUser,
+}) => {
   const { name, price, imageUrl } = item;
-
-  const [clicked, setClicked] = useState(false);
-
-  const handleClick = () => {
-    setClicked((clicked) => !clicked);
-  };
 
   return (
     <div className="collection-item">
@@ -61,23 +63,30 @@ const CollectionItem = ({ item, addItem }) => {
       >
         Add to cart
       </CollectionItemButton>
+      {/* {currentUser && ( */}
       <Heart
         top="10px"
         right="10px"
-        clicked={clicked}
+        clicked={isFavorite}
         className="collection-item__heart"
-        onClick={handleClick}
+        onClick={() => toggleFavorite(item)}
       />
+      {/* )} */}
     </div>
   );
 };
 
 //## =============== Redux =============== ##//
 
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   addItem: (item) => dispatch(addItem(item)),
+  toggleFavorite: (item) => dispatch(toggleFavorite(item)),
 });
 
 //## =============== Export =============== ##//
 
-export default connect(null, mapDispatchToProps)(CollectionItem);
+export default connect(mapStateToProps, mapDispatchToProps)(CollectionItem);

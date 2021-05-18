@@ -109,28 +109,40 @@ export const getCurrentUser = () => {
   });
 };
 
+//:: =============== Helper function for getting document reference based on user =============== :://
+
+const getDocRefBasedOnUser = async (userId, collectionName, initialData) => {
+  const docsRef = firestore
+    .collection(collectionName)
+    .where('userId', '==', userId);
+  const docsSnapShot = await docsRef.get();
+
+  if (docsSnapShot.empty) {
+    const docRef = firestore.collection(collectionName).doc();
+
+    await docRef.set({
+      userId,
+      ...initialData,
+    });
+
+    return docRef;
+  } else {
+    const docRef = docsSnapShot.docs[0].ref;
+
+    return docRef;
+  }
+};
+
 //:: =============== Get user cart items reference =============== :://
 
 export const getUserCartRef = async (userId) => {
-  const cartsRef = firestore.collection('carts').where('userId', '==', userId);
-  const snapShot = await cartsRef.get();
-  // console.log(snapShot);
+  return getDocRefBasedOnUser(userId, 'carts', { cartItems: [] });
+};
 
-  if (snapShot.empty) {
-    const cartDocRef = firestore.collection('carts').doc();
-    // console.log(cartDocRef);
+//:: =============== Get user favorite items reference =============== :://
 
-    await cartDocRef.set({
-      userId,
-      cartItems: [],
-    });
-
-    return cartDocRef;
-  } else {
-    const cartDocRef = snapShot.docs[0].ref;
-
-    return cartDocRef;
-  }
+export const getUserFavoritesRef = async (userId) => {
+  return getDocRefBasedOnUser(userId, 'favorites', { favoriteItems: [] });
 };
 
 //## =============== Initializing Firebase App =============== ##//

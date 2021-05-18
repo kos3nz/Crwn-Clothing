@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 
 import CollectionItem from '../../components/collection-item/collection-item.component';
 import { selectShopCollection } from '../../redux/shop/shop.selectors';
+import { selectFavoriteItems } from '../../redux/favorites/favorites.selectors';
 
 import './collection.styles.scss';
 
 //## =============== Component =============== ##//
 
-const CollectionPage = ({ collection, match }) => {
+const CollectionPage = ({ collection, favoriteItems }) => {
   // console.log(match.params.collectionId);
   // console.log(collection);
   const { title, items } = collection;
@@ -17,9 +18,17 @@ const CollectionPage = ({ collection, match }) => {
     <div className="collection-page">
       <h2 className="title">{title}</h2>
       <div className="items">
-        {items.map((item) => (
-          <CollectionItem key={item.id} item={item} />
-        ))}
+        {items.map((item) => {
+          return (
+            <CollectionItem
+              key={item.id}
+              item={item}
+              isFavorite={
+                favoriteItems.find((fav) => fav.id === item.id) ? true : false
+              }
+            />
+          );
+        })}
       </div>
     </div>
   );
@@ -29,6 +38,7 @@ const CollectionPage = ({ collection, match }) => {
 
 const mapStateToProps = (state, ownProps) => ({
   collection: selectShopCollection(ownProps.match.params.collectionId)(state),
+  favoriteItems: selectFavoriteItems(state),
 });
 
 //## =============== Export =============== ##//

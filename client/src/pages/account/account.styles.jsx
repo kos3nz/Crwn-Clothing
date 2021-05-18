@@ -8,7 +8,7 @@ export const AccountContainer = styled.div`
 `;
 
 export const AccountView = styled.div`
-  width: 800px;
+  width: 850px;
   min-height: 500px;
   border-radius: 5px;
   display: flex;
