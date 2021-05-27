@@ -14,7 +14,7 @@ import { updateUserProfileStart } from '../../../redux/user/user.actions';
 import {
   showSuccessAlert,
   hideAlert,
-} from '../../../redux/alert/alert actions';
+} from '../../../redux/alert/alert.actions';
 
 //## =============== Component =============== ##//
 

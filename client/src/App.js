@@ -43,6 +43,9 @@ const SignInAndRegisterPage = lazy(() =>
 );
 const CheckoutPage = lazy(() => import('./pages/checkout/checkout.component'));
 const AccountPage = lazy(() => import('./pages/account/account.component'));
+const PurchaseSuccessPage = lazy(() =>
+  import('./pages/purchase-success/purchase-success.component')
+);
 
 //## =============== Styled Component =============== ##//
 
@@ -144,6 +147,7 @@ const App = ({
                   )
                 }
               />
+              <Route exact path="/success" component={PurchaseSuccessPage} />
             </Suspense>
           </ErrorBoundary>
         </Switch>

@@ -4,12 +4,14 @@ const path = require('path'); // node.js built-in module
 const compression = require('compression');
 const enforce = require('express-sslify');
 
-if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5000;
 
 // Compression for gzipping on heroku
 app.use(compression());
@@ -47,20 +49,41 @@ app.get('/service-worker.js', (req, res) => {
 });
 
 // Payment route
-app.post('/payment', (req, res) => {
-  const body = {
-    source: req.body.token.id,
-    amount: req.body.amount,
-    currency: 'usd',
-  };
+app.post('/payment', async (req, res) => {
+  const baseUrl = `${req.protocol}://${req.get('host')}`;
+  const items = req.body.cartItems.map((item) => ({
+    price_data: {
+      currency: 'usd',
+      product_data: {
+        name: item.name,
+      },
+      unit_amount: item.price * 100,
+    },
+    quantity: item.quantity,
+  }));
 
-  stripe.charges.create(body, (stripeErr, stripeRes) => {
-    if (stripeErr) {
-      res.status(500).json({ error: stripeErr }); // error sent in test/html form
-    } else {
-      res.status(200).json({ success: stripeRes });
-    }
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: items,
+    mode: 'payment',
+    success_url: `${baseUrl}/success`,
+    cancel_url: `${baseUrl}/checkout`,
   });
+
+  res.json({ id: session.id });
+
+  // const body = {
+  //   source: req.body.token.id,
+  //   amount: req.body.amount,
+  //   currency: 'usd',
+  // };
+  // stripe.charges.create(body, (stripeErr, stripeRes) => {
+  //   if (stripeErr) {
+  //     res.status(500).json({ error: stripeErr }); // error sent in test/html form
+  //   } else {
+  //     res.status(200).json({ success: stripeRes });
+  //   }
+  // });
 });
 
 /* ==============================

@@ -9,7 +9,7 @@ export const AccountContainer = styled.div`
 
 export const AccountView = styled.div`
   width: 850px;
-  min-height: 500px;
+  min-height: 600px;
   border-radius: 5px;
   display: flex;
   overflow: hidden;
@@ -17,6 +17,7 @@ export const AccountView = styled.div`
 
   @media only screen and (max-width: 900px) {
     width: 90%;
+    min-height: 500px;
   }
 `;
 
