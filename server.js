@@ -50,12 +50,16 @@ app.get('/service-worker.js', (req, res) => {
 
 // Payment route
 app.post('/payment', async (req, res) => {
-  const baseUrl = `${req.protocol}://${req.get('host')}`;
+  const baseUrl =
+    process.env.NODE_ENV === 'production'
+      ? `${req.protocol}://${req.get('host')}`
+      : 'http://localhost:3000';
   const items = req.body.cartItems.map((item) => ({
     price_data: {
       currency: 'usd',
       product_data: {
         name: item.name,
+        images: [item.imageUrl],
       },
       unit_amount: item.price * 100,
     },
@@ -70,7 +74,7 @@ app.post('/payment', async (req, res) => {
     cancel_url: `${baseUrl}/checkout`,
   });
 
-  res.json({ id: session.id });
+  return res.status(200).json({ id: session.id });
 
   // const body = {
   //   source: req.body.token.id,

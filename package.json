@@ -19,7 +19,6 @@
     "dotenv": "8.2.0",
     "express": "^4.17.1",
     "express-sslify": "^1.2.0",
-    "react-responsive": "^8.2.0",
     "stripe": "8.145.0"
   },
   "devDependencies": {}
